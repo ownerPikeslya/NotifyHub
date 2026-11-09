@@ -7,5 +7,5 @@ class UrgentNotification extends Notification{
   UrgentNotification(super.channel);
 
   @override
-  void notify(Recipient to, Message msg) => channel.send(to, msg.text);
+  void notify(Recipient to, Message msg) => channel.send(to, "!!! ${msg.title.toUpperCase()}: ${msg.text} !!!" );
 }

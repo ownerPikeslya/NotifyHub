@@ -3,5 +3,4 @@ class Message{
   String text;
 
   Message(this.title, this.text );
-
 }
