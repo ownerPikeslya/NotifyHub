@@ -1,7 +1,13 @@
 import 'package:uni_tests/factories/template_factory.dart';
 
-class UzTemplateFactory implements TemplateFactory{
+import '../models/message.dart';
+
+class RuTemplateFactory implements TemplateFactory{
 
   @override
-  String message() => 'Salom';
+  Message greeting() => Message("Привет", "Приветствую");
+  @override
+  Message discount() => Message("Скидка", "Скидка на товар");
+  @override
+  Message reminder() => Message("Напоминание", "Повторите");
 }

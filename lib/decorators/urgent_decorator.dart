@@ -1,8 +1,8 @@
 import 'channel_decorator.dart';
 import '../models/recipient.dart';
-class EncryptionDecorator extends ChannelDecorator{
-  EncryptionDecorator(super.channel);
+class UrgentDecorator extends ChannelDecorator{
+  UrgentDecorator(super.channel);
 
   @override
-  void send(Recipient to, String text) => channel.send(to, text.split('').reversed.join());
+  void send(Recipient to, String text) => channel.send(to, "Срочно: $text");
 }
