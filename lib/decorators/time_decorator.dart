@@ -4,5 +4,5 @@ class TimeDecorator extends ChannelDecorator{
   TimeDecorator(super.channel);
 
   @override
-  void send(Recipient to, String text) => channel.send(to, "Время: ${DateTime.now()} ${text}");
+  bool send(Recipient to, String text, {int priority = 2}) => channel.send(to, "Время: ${DateTime.now()} ${text}", priority: priority);
 }

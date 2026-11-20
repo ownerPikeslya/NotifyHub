@@ -4,5 +4,5 @@ class EncryptionDecorator extends ChannelDecorator{
   EncryptionDecorator(super.channel);
 
   @override
-  void send(Recipient to, String text) => channel.send(to, text.split('').reversed.join());
+  bool send(Recipient to, String text, {int priority = 2}) => channel.send(to, text.split('').reversed.join(), priority: priority);
 }

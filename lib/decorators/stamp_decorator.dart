@@ -4,5 +4,5 @@ class StampDecorator extends ChannelDecorator{
   StampDecorator(super.channel);
 
   @override
-  void send(Recipient to, String text) => channel.send(to, "Подпись: NotifyHub ${text}");
+  bool send(Recipient to, String text, {int priority = 2}) => channel.send(to, "Подпись: NotifyHub ${text}", priority: priority);
 }

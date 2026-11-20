@@ -9,7 +9,10 @@ class AdvertisingNotification extends Notification {
 
   @override
   void notify(Recipient to, Message msg) {
-    channel.send(to, "Реклама: ${msg.title}: ${msg.text}");
-    NotificationHistory().add("Advertising: ${msg.title}");
+    bool ok = channel.send(to, "Реклама: ${msg.title}: ${msg.text}", priority: 3);
+    NotificationHistory().add("Advertising: ${msg.title} ");
+    NotificationHistory().addType("Advertising");
+    NotificationHistory().addChannel(channel.name);
+    if (!ok) NotificationHistory().addError();
   }
 }

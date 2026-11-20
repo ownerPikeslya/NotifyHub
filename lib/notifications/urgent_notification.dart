@@ -9,7 +9,10 @@ class UrgentNotification extends Notification{
 
   @override
   void notify(Recipient to, Message msg) {
-    channel.send(to, "!!! ${msg.title.toUpperCase()}: ${msg.text} !!!" );
+    bool ok = channel.send(to, "!!! ${msg.title.toUpperCase()}: ${msg.text} !!!", priority: 1);
     NotificationHistory().add("Urgent: ${msg.title.toUpperCase()}");
+    NotificationHistory().addType("Urgent");
+    NotificationHistory().addChannel(channel.name);
+    if (!ok) NotificationHistory().addError();
 }
 }

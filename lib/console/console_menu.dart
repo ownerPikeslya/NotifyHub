@@ -23,12 +23,14 @@ import '../notifications/simple_notification.dart';
 import '../notifications/urgent_notification.dart';
 
 class ConsoleMenu {
-  Recipient recipient = Recipient("mike", "smth@gmail.com", "+998777777777");
+  Recipient recipient = Recipient("mike", "smth@gmail.com", "+9999999999");
 
   void run() {
     while (true) {
       print('1 - Отправить уведомление');
       print('2 - Показать историю');
+      print('3 - Статистика');
+      print('4 - Очистить историю');
       print('0 - Выход');
       stdout.write('Введите команду: ');
       String? input = stdin.readLineSync();
@@ -144,6 +146,10 @@ class ConsoleMenu {
         n.notify(recipient, message);
       } else if (input == '2') {
         NotificationHistory().showAll();
+      } else if (input == '3') {
+        NotificationHistory().showStats();
+      } else if (input == '4') {
+        NotificationHistory().clear();
       } else if (input == '0') {
         break;
       } else {

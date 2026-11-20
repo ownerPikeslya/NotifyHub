@@ -9,7 +9,10 @@ class SimpleNotification extends Notification{
 
   @override
   void notify(Recipient to, Message msg) {
-    channel.send(to, "${msg.title}: ${msg.text}");
+    bool ok = channel.send(to, "${msg.title}: ${msg.text}", priority: 2);
     NotificationHistory().add("Simple: ${msg.title}");
+    NotificationHistory().addType("Simple");
+    NotificationHistory().addChannel(channel.name);
+    if (!ok) NotificationHistory().addError();
   }
 }

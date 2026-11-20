@@ -4,5 +4,5 @@ class UrgentDecorator extends ChannelDecorator{
   UrgentDecorator(super.channel);
 
   @override
-  void send(Recipient to, String text) => channel.send(to, "Срочно: $text");
+  bool send(Recipient to, String text, {int priority = 2}) => channel.send(to, "Срочно: $text", priority: priority);
 }
