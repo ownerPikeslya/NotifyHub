@@ -1,4 +1,4 @@
-// Singleton: один объект на всю программу, хранит историю и статистику.
+// Singleton один объект на всю программу, хранит историю и статистику.
 class NotificationHistory {
   static final NotificationHistory _instance = NotificationHistory._();
 

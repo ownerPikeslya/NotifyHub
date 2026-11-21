@@ -7,6 +7,7 @@ import '../channels/email_channel.dart';
 import '../channels/legacy_sms_gateway.dart';
 import '../channels/push_channel.dart';
 import '../channels/sms_adapter.dart';
+import '../channels/telegram_channel.dart';
 import '../decorators/encryption_decorator.dart';
 import '../decorators/stamp_decorator.dart';
 import '../decorators/time_decorator.dart';
@@ -23,7 +24,7 @@ import '../notifications/simple_notification.dart';
 import '../notifications/urgent_notification.dart';
 
 class ConsoleMenu {
-  Recipient recipient = Recipient("mike", "smth@gmail.com", "+9999999999");
+  Recipient recipient = Recipient("mike", "smth@gmail.com", "");
 
   void run() {
     while (true) {
@@ -40,6 +41,7 @@ class ConsoleMenu {
         print('Канал: 1 - Email');
         print('Канал: 2 - Push');
         print('Канал: 3 - SMS');
+        print('Канал: 4 - Telegram');
         stdout.write('Введите команду: ');
         String? chn = stdin.readLineSync();
 
@@ -50,6 +52,8 @@ class ConsoleMenu {
           channel = PushChannel();
         } else if (chn == '3') {
           channel = SmsAdapter(LegacySmsGateway());
+        } else if (chn == '4') {
+          channel = TelegramChannel();
         } else {
           print('Неверный канал');
           continue;
