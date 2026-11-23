@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:uni_tests/channels/channel.dart';
-import 'package:uni_tests/notifications/advertising_notification.dart';
 
 import '../channels/email_channel.dart';
 import '../channels/legacy_sms_gateway.dart';
@@ -19,12 +18,13 @@ import '../factories/uz_template_factory.dart';
 import '../history/notification_history.dart';
 import '../models/message.dart';
 import '../models/recipient.dart';
+import '../notifications/alert_notification.dart';
 import '../notifications/notification.dart';
-import '../notifications/simple_notification.dart';
-import '../notifications/urgent_notification.dart';
+import '../notifications/promo_notification.dart';
+import '../notifications/reminder_notification.dart';
 
 class ConsoleMenu {
-  Recipient recipient = Recipient("mike", "smth@gmail.com", "");
+  Recipient recipient = Recipient("mike", "smth@gmail.com", "+998901234567");
 
   void run() {
     while (true) {
@@ -77,74 +77,51 @@ class ConsoleMenu {
           channel = EncryptionDecorator(channel);
         }
 
-        // Сообщение
-        print('1 - Шаблон');
-        print('2 - Свой текст');
+        //Тип уведомления
+        print('1 - Alert (срочное)');
+        print('2 - Reminder (напоминание)');
+        print('3 - Promo (реклама)');
         stdout.write('Введите команду: ');
-        String? msgType = stdin.readLineSync();
-
-        Message message;
-        if (msgType == '1') {
-          print('Язык: 1 - Русский');
-          print('Язык: 2 - Узбекский');
-          print('Язык: 3 - Английский');
-          stdout.write('Введите команду: ');
-          String? lang = stdin.readLineSync();
-
-          TemplateFactory factory;
-          if (lang == '1') {
-            factory = RuTemplateFactory();
-          } else if (lang == '2') {
-            factory = UzTemplateFactory();
-          } else if (lang == '3') {
-            factory = EngTemplateFactory();
-          } else {
-            print('Неверный язык');
-            continue;
-          }
-
-          print('1 - Приветствие');
-          print('2 - Скидка');
-          print('3 - Напоминание');
-          stdout.write('Введите команду: ');
-          String? tpl = stdin.readLineSync();
-
-          if (tpl == '1') {
-            message = factory.greeting();
-          } else if (tpl == '2') {
-            message = factory.discount();
-          } else if (tpl == '3') {
-            message = factory.reminder();
-          } else {
-            print('Неверный шаблон');
-            continue;
-          }
-        } else if (msgType == '2') {
-          stdout.write('Текст: ');
-          String text = stdin.readLineSync() ?? '';
-          message = Message('Сообщение', text);
-        } else {
+        String? type = stdin.readLineSync();
+        if (type != '1' && type != '2' && type != '3') {
           print('Неверная команда');
           continue;
         }
 
-        //Тип уведомления
-        print('1 - Обычное');
-        print('2 - Срочное');
-        print('3 - Рекламное');
+        //Язык шаблона
+        print('Язык: 1 - Русский');
+        print('Язык: 2 - Узбекский');
+        print('Язык: 3 - Английский');
         stdout.write('Введите команду: ');
-        String? type = stdin.readLineSync();
+        String? lang = stdin.readLineSync();
 
+        TemplateFactory factory;
+        if (lang == '1') {
+          factory = RuTemplateFactory();
+        } else if (lang == '2') {
+          factory = UzTemplateFactory();
+        } else if (lang == '3') {
+          factory = EngTemplateFactory();
+        } else {
+          print('Неверный язык');
+          continue;
+        }
+
+        //Текст пользователя
+        stdout.write('Текст: ');
+        String text = stdin.readLineSync() ?? '';
+
+        Message message;
         Notification n;
         if (type == '1') {
-          n = SimpleNotification(channel);
+          message = factory.alert(text);
+          n = AlertNotification(channel);
         } else if (type == '2') {
-          n = UrgentNotification(channel);
-        } else if (type == '3') {
-          n = AdvertisingNotification(channel);
+          message = factory.reminder(text);
+          n = ReminderNotification(channel);
         } else {
-          print('Неверная команда');
-          continue;
+          message = factory.promo(text);
+          n = PromoNotification(channel);
         }
 
         n.notify(recipient, message);

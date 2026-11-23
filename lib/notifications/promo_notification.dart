@@ -4,14 +4,14 @@ import '../models/message.dart';
 import '../models/recipient.dart';
 
 
-class AdvertisingNotification extends Notification {
-  AdvertisingNotification(super.channel);
+class PromoNotification extends Notification {
+  PromoNotification(super.channel);
 
   @override
   void notify(Recipient to, Message msg) {
-    bool ok = channel.send(to, "Реклама: ${msg.title}: ${msg.text}", priority: 3);
-    NotificationHistory().add("Advertising: ${msg.title} ");
-    NotificationHistory().addType("Advertising");
+    bool ok = channel.send(to, msg.text, priority: 3);
+    NotificationHistory().add("Promo: ${msg.text}");
+    NotificationHistory().addType("Promo");
     NotificationHistory().addChannel(channel.name);
     if (!ok) NotificationHistory().addError();
   }
