@@ -4,9 +4,9 @@ import '../models/message.dart';
 class EngTemplateFactory implements TemplateFactory {
 
   @override
-  Message alert(String text) => Message("Attention", "⚠️ ATTENTION: $text");
+  Message alert(String text) => Message("Attention", "ATTENTION: $text");
   @override
-  Message reminder(String text) => Message("Reminder", "⏰ Reminder: $text");
+  Message reminder(String text) => Message("Reminder", "Reminder: $text");
   @override
-  Message promo(String text) => Message("Promo", "🎁 Promo: $text");
+  Message promo(String text) => Message("Promo", "Promo: $text");
 }

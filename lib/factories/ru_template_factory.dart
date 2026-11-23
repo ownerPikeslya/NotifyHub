@@ -4,9 +4,9 @@ import '../models/message.dart';
 class RuTemplateFactory implements TemplateFactory {
 
   @override
-  Message alert(String text) => Message("Внимание", "⚠️ ВНИМАНИЕ: $text");
+  Message alert(String text) => Message("Внимание", "ВНИМАНИЕ: $text");
   @override
-  Message reminder(String text) => Message("Напоминание", "⏰ Напоминание: $text");
+  Message reminder(String text) => Message("Напоминание", "Напоминание: $text");
   @override
-  Message promo(String text) => Message("Акция", "🎁 Акция: $text");
+  Message promo(String text) => Message("Акция", "Акция: $text");
 }
